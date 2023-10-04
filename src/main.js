@@ -103,7 +103,6 @@ class GameOver extends Phaser.Scene {
         // setup pointer/touch
         let pointer = this.input.activePointer
         this.input.on('pointerdown', (pointer) => {
-            pointer.reset()
             // start next scene
             this.scene.start('mainMenu')
         })
