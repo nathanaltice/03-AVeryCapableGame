@@ -75,7 +75,7 @@ class GamePlay extends Phaser.Scene {
 
         // make a fighting message
         let result = ''
-        if(Math.floor(Math.random() * 2)) {     // simulate a "coin flip"
+        if(Phaser.Math.Between(0, 1)) {     // simulate a "coin flip"
 			this.stats.life--
 			result = `Ouch! The ${noun} ${verbCounter} you in return! Lose a life!`
 		} else {
