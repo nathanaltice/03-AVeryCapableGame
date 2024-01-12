@@ -36,9 +36,10 @@ class MainMenu extends Phaser.Scene {
             `Welcome to A Very ${adj} Game`, 
             'Click anywhere to begin', 
             `Level: ${stats.level} / Life: ${stats.life}`,
-            this)
+            this
+        )
         
-            // setup pointer/touch
+        // setup pointer/touch
         let pointer = this.input.activePointer
         this.input.on('pointerdown', (pointer) => {
             // start next scene and pass player stat data
@@ -57,9 +58,8 @@ class GamePlay extends Phaser.Scene {
     init(data) {
         console.log('GamePlay: init')           // used to show scene flow
 
-        // grab player stats from previous scene
-        this.stats = data
-        this.stats.level++
+        this.stats = data   // grab player stats from previous scene...
+        this.stats.level++  // ...and increament the level
     }
 
     create() {
@@ -75,7 +75,7 @@ class GamePlay extends Phaser.Scene {
 
         // make a fighting message
         let result = ''
-        if(Math.floor(Math.random()*2)) {
+        if(Math.floor(Math.random() * 2)) {     // simulate a "coin flip"
 			this.stats.life--
 			result = `Ouch! The ${noun} ${verbCounter} you in return! Lose a life!`
 		} else {
@@ -91,7 +91,7 @@ class GamePlay extends Phaser.Scene {
             this
         )
 
-        // setup pointer/touch
+        // set up pointer/touch
         let pointer = this.input.activePointer
         this.input.on('pointerdown', (pointer) => {
             if(this.stats.life > 0) {
@@ -112,8 +112,7 @@ class GameOver extends Phaser.Scene {
 
     init(data) {
         console.log('GameOver: init')           // used to show scene flow
-        // grab player stats from previous scene
-        this.stats = data
+        this.stats = data       // grab player stats from previous scene
     }
 
     create() {
@@ -125,9 +124,10 @@ class GameOver extends Phaser.Scene {
             `Your life spent, you drift ${adv} into oblivion...`, 
             `You reached level ${this.stats.level}. Click anywhere to play again!`,
             `Level: ${this.stats.level} / Life: ${this.stats.life}`,
-            this)
+            this
+        )
         
-        // setup pointer/touch and pointer down event
+        // set up pointer/touch
         let pointer = this.input.activePointer
         this.input.on('pointerdown', (pointer) => {
             this.scene.start('mainMenu') // start next scene
@@ -135,7 +135,7 @@ class GameOver extends Phaser.Scene {
     }
 }
 
-// initialize our variables and the Phaser game
+// initialize our global variables and the Phaser game
 let wordList = {}
 
 let config = {
@@ -154,7 +154,7 @@ Beyond these depths be thine sundry utility functions...
 
 // create our word list (words from randomlists.com and my questionable brain)
 function initWordList() {
-	wordList = {}
+	wordList = {}   // this resets the wordList object each time this function is called
 	wordList = {
         adjectives: ['nervous', 'oceanic', 'fuzzy', 'sore', 'untidy', 'flowery', 'muddled', 'hellish', 'overwrought', 'abrupt', 'quixotic', 'grumpy', 'enormous', 'capable', 'roomy', 'tender', 'spiky', 'magenta', 'cute', 'dusty', 'hot', 'exultant', 'massive', 'lush', 'aromatic', 'solid', 'wrathful', 'dull', 'grey', 'likeable', 'narrow', 'tall', 'eloquent', 'green', 'ragged', 'random', 'slimy', 'gruesome', 'weaponized', 'pious', 'rancid', 'frothy', 'blank', 'furry', 'lightweight', 'tropical', 'barren', 'studious', 'anxious', 'cloudy', 'plain', 'putrid', 'pink', 'academic', 'rancid', 'rugged', 'rumpled', 'dishonest', 'shaky', 'shady', 'sheltered', 'perfect', 'patchwork', 'salty', 'dark', 'dim', 'delicate', 'massive', 'golden', 'glib', 'gossamer', 'briny', 'jolly', 'artsy', 'dreary', 'hooded', 'chilled', 'expansive', 'sinister', 'dubious', 'troublesome', 'tired', 'exhausted', 'tragic', 'shallow', 'dense', 'dilapidated', 'fireproof', 'brackish', 'scalding', 'anime', 'political', 'turquoise', 'obtuse', 'plastic', 'ceramic', 'furious', 'antique', 'bronze', 'hamstrung', 'repulsive', 'corpulent', 'dimpled', 'topical'],
 		nouns: ['fire', 'hydrant', 'spoon', 'frog', 'leg', 'person', 'baseball', 'ghost', 'ocean', 'stranger', 'bulb', 'galaxy', 'government', 'bed', 'giraffe', 'smell', 'oven', 'orange', 'snail', 'parcel', 'wax', 'seashore', 'desk', 'pie', 'crowd', 'toothbrush', 'sink', 'trees', 'cemetery', 'tombstone', 'sky', 'giants', 'apparatus', 'ladybug', 'machine', 'rabbits', 'hill', 'notebook', 'cabbage', 'car', 'trousers', 'bee', 'hippo', 'turnip', 'pillows', 'raven', 'potion', 'zealot', 'curtain', 'espresso', 'professor', 'plant', 'encyclopedia', 'office chair', 'trellis', 'gymnasium', 'sweater', 'whiskey', 'album', 'napkin', 'armoir', 'stew', 'werewolf', 'final exam', 'birthday party', 'poultry', 'prom date', 'painting', 'helicopter', 'pretzel', 'serpent', 'pandemic', 'console', 'shoehorn', 'lantern', 'bake sale', 'rooftops', 'spaghetti', 'tracksuit', 'belt loops', 'breakfast cereal', 'board games', 'Steam library', 'superhero', 'dirt bike', 'sophomores', 'salad', 'hedges', 'jambalaya', 'mascots', 'code', 'dentist', 'cowboy hat', 'trumpet', 'goose', 'DLC', 'streamers', 'spreadsheet', 'harpy', 'clown car', 'shopping mall', 'HDTV', 'dresser drawer', 'vinyl sticker', 'dad', 'Zoom meeting', 'tsunami', 'cremini mushroom', 'shingles', 'game designer', 'clam chowder', 'seminar', 'ornaments'],
