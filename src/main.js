@@ -1,6 +1,6 @@
 // Nathan Altice
 // Adapted to Phaser 3: 4/9/20
-// Updated: 10/4/23
+// Updated: 1/12/24
 // A Very Capable Game: a simple mad libs-style text "game" demonstrating Scene management
 // Passes state variables from scene to scene
 // Uses randomized words and colors for extra fun times 🌈
@@ -15,21 +15,27 @@ class MainMenu extends Phaser.Scene {
     }
 
     create() {
-        // player stats
+        // initialize player stats
         let stats = {
             level: 0,
             life: 3
         }
-        // some debugging info
-        console.log(`level: ${stats.level}, life: ${stats.life}`)
+        
         // get our word list ready
         initWordList()
+        
         // change background color
         this.cameras.main.setBackgroundColor(getRandomHexColor())
+        
         // get a random adjective, capitalize it, and print title message
 		let adj = getRandomWord(wordList.adjectives, true)
-        printMessages(`Welcome to A Very ${adj} Game`, 'Click anywhere to begin', this)
-        // setup pointer/touch
+        printMessages(
+            `Welcome to A Very ${adj} Game`, 
+            'Click anywhere to begin', 
+            `Level: ${stats.level} / Life: ${stats.life}`,
+            this)
+        
+            // setup pointer/touch
         let pointer = this.input.activePointer
         this.input.on('pointerdown', (pointer) => {
             // start next scene and pass player stat data
@@ -48,7 +54,6 @@ class GamePlay extends Phaser.Scene {
         // grab player stats from previous scene
         this.stats = data
         this.stats.level++
-        console.log(`level: ${this.stats.level}, life: ${this.stats.life}`)
     }
 
     create() {
@@ -69,8 +74,14 @@ class GamePlay extends Phaser.Scene {
 			let adv2 = getRandomWord(wordList.adverbs)
 			result = 'And you '+adv2+' avoided the '+noun+'\'s counterattack! Level up!'
 		}
-        // print it!
-        printMessages(`You ${adv} ${verb} the ${adj} ${noun}!`, result, this)
+
+        // print battle messages!
+        printMessages(
+            `You ${adv} ${verb} the ${adj} ${noun}!`, 
+            result,
+            `Level: ${this.stats.level} / Life: ${this.stats.life}`,
+            this
+        )
 
         // setup pointer/touch
         let pointer = this.input.activePointer
@@ -98,13 +109,16 @@ class GameOver extends Phaser.Scene {
     create() {
         // print goodbye message
         let adv = getRandomWord(wordList.adverbs)
-        printMessages(`Your life spent, you drift ${adv} into oblivion...`, `You reached level ${this.stats.level}. Click anywhere to play again!`, this)
+        printMessages(
+            `Your life spent, you drift ${adv} into oblivion...`, 
+            `You reached level ${this.stats.level}. Click anywhere to play again!`,
+            `Level: ${this.stats.level} / Life: ${this.stats.life}`,
+            this)
         
-        // setup pointer/touch
+        // setup pointer/touch and pointer down event
         let pointer = this.input.activePointer
         this.input.on('pointerdown', (pointer) => {
-            // start next scene
-            this.scene.start('mainMenu')
+            this.scene.start('mainMenu') // start next scene
         })
     }
 }
@@ -169,11 +183,12 @@ function getRandomWord(wordList, capitalize = false) {
 
 // pass in two lines of text to print on screen
 // note that the current Scene is passed in as "scene" since this function lives outside any Phaser.Scene scope
-function printMessages(top_msg, btm_msg, scene) {
+function printMessages(top_msg, btm_msg, stats_msg, scene) {
     // define styles
     let style1 = { font: '28px Helvetica', fill: '#FFF', align: 'center' }
     let style2 = { font: '18px Helvetica', fill: '#FFF', align: 'center' }
     // print messages
 	scene.add.text(50, game.config.height/2, top_msg, style1)
 	scene.add.text(50, game.config.height/2 + 48, btm_msg, style2)
+    scene.add.text(50, game.config.height - 48, stats_msg, style2)
 }
