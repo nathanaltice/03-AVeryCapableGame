@@ -12,9 +12,12 @@
 class MainMenu extends Phaser.Scene {
     constructor() {
         super('mainMenu')
+        console.log('MainMenu: constructor')    // used to show scene flow
     }
 
     create() {
+        console.log('MainMenu: create')         // used to show scene flow
+
         // initialize player stats
         let stats = {
             level: 0,
@@ -48,15 +51,20 @@ class MainMenu extends Phaser.Scene {
 class GamePlay extends Phaser.Scene {
     constructor() {
         super('gamePlay')
+        console.log('GamePlay: constructor')    // used to show scene flow
     }
 
     init(data) {
+        console.log('GamePlay: init')           // used to show scene flow
+
         // grab player stats from previous scene
         this.stats = data
         this.stats.level++
     }
 
     create() {
+        console.log('GamePlay: create')         // used to show scene flow
+
         // randomize our various parts of speech 🎲
 		this.cameras.main.setBackgroundColor(getRandomHexColor())
 		let adj = getRandomWord(wordList.adjectives)
@@ -99,14 +107,18 @@ class GamePlay extends Phaser.Scene {
 class GameOver extends Phaser.Scene {
     constructor() {
         super('gameOver')
+        console.log('GameOver: constructor')    // used to show scene flow
     }
 
     init(data) {
+        console.log('GameOver: init')           // used to show scene flow
         // grab player stats from previous scene
         this.stats = data
     }
 
     create() {
+        console.log('GameOver: create')         // used to show scene flow
+
         // print goodbye message
         let adv = getRandomWord(wordList.adverbs)
         printMessages(
