@@ -1,6 +1,6 @@
 // Nathan Altice
 // Adapted to Phaser 3: 4/9/20
-// Updated: 1/12/24
+// Updated: 12/15/24
 // A Very Capable Game: a simple mad libs-style text "game" demonstrating Scene management
 // Passes state variables from scene to scene
 // Uses randomized words and colors for extra fun times 🌈
