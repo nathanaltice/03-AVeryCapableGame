@@ -1,6 +1,6 @@
 // Nathan Altice
 // Adapted to Phaser 3: 4/9/20
-// Updated: 12/30/25
+// Updated: 1/9/26
 // A Very Capable Game: a simple mad libs-style text "game" demonstrating Scene management
 // Passes state variables from scene to scene
 // Uses randomized words and colors for extra fun times 🌈
@@ -21,7 +21,7 @@ class MainMenu extends Phaser.Scene {
         // initialize player stats
         let stats = {
             level: 0,
-            life: 3
+            life: 3,
         }
         
         // get our word list ready
@@ -33,8 +33,10 @@ class MainMenu extends Phaser.Scene {
         // get a random adjective, capitalize it, and print title message
 		let adj = getRandomWord(wordList.adjectives, true)
         printMessages(
+            // notice the use of template literals (aka template strings)
+            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
             `Welcome to A Very ${adj} Game`, 
-            'Click anywhere to begin', 
+            'Click anywhere to begin',
             `Level: ${stats.level} / Life: ${stats.life}`,
             this
         )
@@ -80,7 +82,7 @@ class GamePlay extends Phaser.Scene {
 			result = `Ouch! The ${noun} ${verbCounter} you in return! Lose a life!`
 		} else {
 			let adv2 = getRandomWord(wordList.adverbs)
-			result = 'And you '+adv2+' avoided the '+noun+'\'s counterattack! Level up!'
+            result = `And you ${adv2} avoided the ${noun}\'s counterattack! Level up!`
 		}
 
         // print battle messages!
